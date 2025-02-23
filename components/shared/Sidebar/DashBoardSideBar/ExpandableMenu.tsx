@@ -18,7 +18,7 @@ const ExpandableMenuCmp: FC<props> = ({ menuItem }) => {
 			key={menuItem.name}
 			onClick={() => setOpen(!open)}
 			className={classNames(
-				currentRoute.includes(menuItem.href)
+				currentRoute?.includes(menuItem.href)
 					? "bg-gray-100 text-primary"
 					: "text-gray-600 hover:bg-gray-50 hover:text-primary",
 				"group rounded-md py-2 px-2 flex items-center text-sm font-medium cursor-pointer justify-between flex-wrap",
@@ -27,7 +27,7 @@ const ExpandableMenuCmp: FC<props> = ({ menuItem }) => {
 			<div className="flex">
 				<menuItem.icon
 					className={classNames(
-						currentRoute.includes(menuItem.href)
+						currentRoute?.includes(menuItem.href)
 							? "text-primary"
 							: "text-gray-400 group-hover:text-primary",
 						"mr-3 flex-shrink-0 h-6 w-6",
