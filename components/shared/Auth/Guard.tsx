@@ -9,7 +9,7 @@ interface CmpGuardProps extends PropsWithChildren {
 }
 const CmpGuard: FC<CmpGuardProps> = ({ children, roles }) => {
 	const { status, data } = useSession();
-	const payloadData = data as TokenPayload;
+	const payloadData = data as unknown as TokenPayload;
 	const hasRequiredRoles = (): boolean => {
 		return roles.some((element) => payloadData.user.roles.includes(element));
 	};
