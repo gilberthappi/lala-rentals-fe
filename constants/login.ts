@@ -9,6 +9,21 @@ export const loginSchema = z.object({
 	}),
 });
 
+export const registerSchema = z.object({
+	email: z.string().email({
+		message: "Please enter a valid email address.",
+	}),
+	password: z.string({
+		message: "Wrong Password. Please enter a valid password.",
+	}),
+	confirmPassword: z.string({
+		message: "Wrong Password. Please enter a valid password.",
+	}),
+	firstName: z.string({message: "First Name is required"}),
+	lastName: z.string({message: "First Name is required"}),
+	image:z.any().optional(),
+});
+
 export const resetPasswordSchema = z.object({
 	otp: z.string().min(1, "OTP is required"),
 	email: z.string().email("Invalid email address"),

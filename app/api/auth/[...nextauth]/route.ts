@@ -1,4 +1,4 @@
-import { signIn, registerGoogleUser } from "@/services/auth";
+import { signIn, registerGoogleUser, registerUser } from "@/services/auth";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -19,6 +19,43 @@ const handler = NextAuth({
 					})) as any;
 				} catch (error: any) {
 					throw new Error(error.response?.data?.message ?? error);
+				}
+			},
+		}),
+		CredentialsProvider({
+			name: "register",
+			credentials: {
+				email: { label: "email", type: "email", placeholder: "me@domain.com" },
+				password: { label: "Password", type: "password" },
+				firstName: { label: "Firstname", type: "text", placeholder: "john" },
+				lastname: { label: "LastName", type: "text", placeholder: "peter" },
+				image: { label: "profile image", type: "file", placeholder: "upload file" }
+			},
+			async authorize(credentials) {
+				try {
+					console.log("Registering user with credentials:", credentials);
+					const user = await registerUser({
+						password: credentials?.password,
+						email: credentials?.email,
+						firstName: credentials?.firstName,
+						lastName: credentials?.lastname,
+						image: credentials?.image,
+					});
+					console.log("Registered user:", user);
+					if (user) {
+						return {
+							...user,
+							id: user.id.toString(),
+						};
+					}
+					console.log("No user returned from signUp");
+					return null;
+				} catch (error: any) {
+					console.error("Register error:", error);
+					if (error.response) {
+						console.error("Error response data:", error.response.data);
+					}
+					throw new Error(error.response?.data?.message ?? error.message);
 				}
 			},
 		}),
@@ -45,7 +82,7 @@ const handler = NextAuth({
 							firstName: user.firstName,
 							lastName: user.lastName,
 							roles: user.roles[0],
-							image: profile.picture,
+							image: user.image,
 						};
 					} else {
 						throw new Error("ID token is undefined");

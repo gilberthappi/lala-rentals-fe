@@ -29,7 +29,7 @@ const AdminHeader = () => {
 					<DropdownMenu>
 						<DropdownMenuTrigger>
 							<Avatar>
-								<AvatarImage src={data?.user?.image || "/default-avatar.png"} />
+								<AvatarImage src={data?.user?.image || "https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg"} />
 								<AvatarFallback>{data?.user?.name?.charAt(0).toUpperCase()}</AvatarFallback>
 							</Avatar>
 						</DropdownMenuTrigger>

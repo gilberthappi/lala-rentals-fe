@@ -15,11 +15,12 @@ const Sidebar = () => {
 				<div className="top-0 flex flex-col flex-grow h-screen overflow-hidden no-scrollbar">
 					<div className="flex flex-col h-screen py-9">
 						<Image
-							src="/ngirologo1.png"
+							src="/lala.png"
 							alt=""
 							width={200}
 							height={200}
 							className="ml-7 pb-8"
+							style={{ height: "auto" }}
 						/>
 						<nav className="flex flex-col flex-1 h-full px-4">
 							<TopMenus />
