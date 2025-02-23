@@ -4,9 +4,11 @@ import { getSession } from "next-auth/react";
 
 interface AppSession extends Session {
 	user: {
+		id: string;
 		token: string;
 		name: string;
 		email: string;
+		image?: string | null;
 		firstName: string;
 		lastName: string;
 	};
