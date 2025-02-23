@@ -20,10 +20,6 @@ const BookingsPages = () => {
 		gcTime: 0,
 	});
 
-	const handleUpdateBooking = (property: IProperty, status: string) => {
-		updateBookingMutation.mutate({ id: property.id.toString(), status });
-	};
-
 	const updateBookingMutation = useMutation({
 		mutationFn: ({ id, status }: { id: string; status: string }) => updateBookingstatus(id, status),
 		onSuccess: () => {
@@ -42,6 +38,10 @@ const BookingsPages = () => {
 			});
 		}
 	});
+
+	const handleUpdateBooking = React.useCallback((property: IProperty, status: string) => {
+		updateBookingMutation.mutate({ id: property.id.toString(), status });
+	}, [updateBookingMutation]);
 
 
 	function formatDate(dateString: string): string {
@@ -94,7 +94,7 @@ const BookingsPages = () => {
 				),
 			},
 		],
-		[],
+		[handleUpdateBooking],
 	);
 
 	return (

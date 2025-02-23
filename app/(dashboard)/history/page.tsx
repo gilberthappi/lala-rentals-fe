@@ -1,6 +1,6 @@
 "use client";
 import { customStyles } from "@/components/ui/helper.css";
-import type { IBookings, IProperty } from "@/types";
+import type { IBookings } from "@/types";
 import { AiOutlineEye } from "react-icons/ai";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
