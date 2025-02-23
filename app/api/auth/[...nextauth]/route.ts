@@ -27,6 +27,7 @@ const handler = NextAuth({
 			credentials: {
 				email: { label: "email", type: "email", placeholder: "me@domain.com" },
 				password: { label: "Password", type: "password" },
+				confirmPassword: { label: "Confirm Password", type: "password" },
 				firstName: { label: "Firstname", type: "text", placeholder: "john" },
 				lastname: { label: "LastName", type: "text", placeholder: "peter" },
 				image: { label: "profile image", type: "file", placeholder: "upload file" }

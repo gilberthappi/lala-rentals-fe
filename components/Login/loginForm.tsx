@@ -42,6 +42,7 @@ export const LoginForm = ({ callbackUrl }: { callbackUrl: string }) => {
     defaultValues: {
       email: "",
       password: "",
+      confirmPassword: "", // Add confirmPassword to default values
       firstName: "",
       lastName: "",
       image: "",
@@ -74,7 +75,7 @@ export const LoginForm = ({ callbackUrl }: { callbackUrl: string }) => {
   const handleRegister = async (formData: TRegisterSchema) => {
     setLoading(true);
     setError(undefined);
-    if (formData.password !== registerForm.getValues("confirmPassword")) {
+    if (formData.password !== formData.confirmPassword) {
       registerForm.setError("confirmPassword", {
         type: "manual",
         message: "Passwords do not match.",
