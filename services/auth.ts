@@ -1,5 +1,3 @@
-// /home/happi/Project/iwm/lalahomes/services/auth.ts
-
 import type { roles } from "@/constants/roles";
 import type { loginSchema } from "@/constants/login";
 import type { z } from "zod";
@@ -12,6 +10,7 @@ export interface ISignInResponse {
 	email: string;
 	firstName: string;
 	lastName: string;
+	name: string;
 	roles: keyof typeof roles;
 }
 export type TResetPasswordSchema = {
@@ -23,20 +22,17 @@ export type TResetPasswordSchema = {
 export type TLoginSchema = z.infer<typeof loginSchema>;
 
 export const signIn = async (data: any): Promise<ISignInResponse | null> => {
-	const user = (await axios.post("/auth/signin", data)).data.data;
+	const response = await axios.post("/auth/signin", data);
+	const user = response.data.data;
+
 	return {
-		...user,
-		name: user.firstName,
-		lastName: user.lastName,
+		token: user.token,
+		id: user.id,
+		name: `${user.firstName} ${user.lastName}`,
 		email: user.email,
-		studentPhone: user.studentPhone,
-		school: user.school,
-		sector: user.sector,
-		trade: user.trade,
-		level: user.level,
-		trainerLastName: user.trainerLastName,
-		trainerFirstName: user.trainerFirstName,
-		trainerPhone: user.trainerPhone,
+		firstName: user.firstName,
+		lastName: user.lastName,
+		roles: user.roles[0],
 	};
 };
 
@@ -56,16 +52,9 @@ export const reset_password = async (data: {
 	return response.data;
 };
 
-export const googleSignIn = async (data: {
-	token: string;
-}): Promise<any> => {
-	const response = await httpClient.post("/auth/google-authenticate", data);
-	return response.data;
-};
-
 export const registerGoogleUser = async (data: {
 	token: string;
-}): Promise<any> => {
+}): Promise<ISignInResponse> => {
 	const response = await httpClient.post("/auth/google-authenticate", data);
-	return response.data;
+	return response.data.data;
 };

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React, { useState } from "react";
 import Typography from "../typography/Typography";
@@ -10,11 +11,10 @@ import { IProperty } from "@/types";
 import Loader from "@/components/ui/Loader";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import Image from "next/image";
 import { HiOutlineCurrencyDollar } from "react-icons/hi2";
 
 const PropertySection = () => {
-  const [sortOption, setSortOption] = useState("name-asc");
+  const [sortOption] = useState("name-asc");
   const [locationFilter, setLocationFilter] = useState("");
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [bedroomFilter, setBedroomFilter] = useState(0);
@@ -24,9 +24,6 @@ const PropertySection = () => {
     queryFn: getAllProperties,
   });
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortOption(e.target.value);
-  };
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocationFilter(e.target.value);

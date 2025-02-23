@@ -13,7 +13,6 @@ const handler = NextAuth({
 			},
 			async authorize(credentials) {
 				try {
-					console.log(credentials);
 					return (await signIn({
 						password: credentials?.password,
 						email: credentials?.email,
@@ -33,22 +32,29 @@ const handler = NextAuth({
 					response_type: "code"
 				}
 			},
-			async profile(profile, tokens) {
+			async profile(profile, tokens): Promise<any> {
 				try {
- if (tokens.id_token) {
- await registerGoogleUser({ token: tokens.id_token });
-} else {
- throw new Error("ID token is undefined");
- }
+					if (tokens.id_token) {
+						const response = await registerGoogleUser({ token: tokens.id_token });
+						const user = response;
+						return {
+							token: user.token,
+							id: user.id,
+							name: `${user.firstName} ${user.lastName}`,
+							email: user.email,
+							firstName: user.firstName,
+							lastName: user.lastName,
+							roles: user.roles[0],
+							image: profile.picture,
+						};
+					} else {
+						throw new Error("ID token is undefined");
+					}
 				} catch (error) {
- console.error("Error registering Google user:", error);
+					console.error("Error registering Google user:", error);
+					return null;
 				}
-				return {
-id: profile.sub,
- name: profile.name,
- email: profile.email,
-image: profile.picture,
-				}; } 
+			}
 		}),
 	],
 	callbacks: {

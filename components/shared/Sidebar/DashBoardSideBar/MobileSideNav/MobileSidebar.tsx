@@ -1,13 +1,11 @@
 "use client";
 import {
 	Menu,
-	MenuButton,
 	MenuItem,
 	MenuItems,
 	Transition,
 	TransitionChild,
 } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -38,24 +36,21 @@ const MobileSidebar = ({
 				enter="transition-opacity duration-300"
 				leave="transition-opacity duration-300"
 			>
-				<div className="block bg-primary">
+				<div className="fixed inset-y-0 left-0 z-50 w-64 bg-primary">
 					<div className="flex flex-col flex-grow overflow-y-auto">
 						<div className="flex flex-col py-6 rounded-lg bg-primary">
 							<nav className="flex flex-col flex-1 px-4 pb-4 gap-7">
 								<div>
 									<div className="mb-8 text-white text-md">
 										<Menu as="div" className="relative ml-3 md:block">
-											<div>
-												<MenuButton className="flex items-center max-w-xs text-sm">
-													<div className="flex items-center">
-														<div>{data?.user?.name}</div>
-														<ChevronDownIcon
-															className="w-5 h-5 ml-2 -mr-1"
-															aria-hidden="true"
-														/>
-													</div>
+											{/* <div>
+												<MenuButton className="flex left-0 max-w-xs text-sm">
+													<Avatar className="mr-2 text-blue-900">
+														<AvatarImage src={data?.user?.image || "/default-avatar.png"} />
+														<AvatarFallback>{data?.user?.name?.charAt(0).toUpperCase()}</AvatarFallback>
+													</Avatar>
 												</MenuButton>
-											</div>
+											</div> */}
 											<Transition
 												as={Fragment}
 												enter="transition ease-out duration-100"
@@ -67,16 +62,32 @@ const MobileSidebar = ({
 											>
 												<MenuItems className="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 													<MenuItem>
-														<button
-															type="button"
-															onClick={handleLogout}
-															className={
-																"block py-2 px-4 text-sm text-gray-700"
-															}
-														>
-															logout
-														</button>
+														<div className="px-4 py-2 text-sm text-gray-700">
+														{data?.user?.name}
+														</div>
 													</MenuItem>
+													<Menu.Item>
+								{({ active }) => (
+									<Link href="/welcome" className={`${
+										active ? "bg-gray-100" : ""
+									} block py-2 px-4 text-sm text-gray-700 w-full text-left`}>
+										Dashboard
+									</Link>
+									)}
+								</Menu.Item>
+								<Menu.Item>
+									{({ active }) => (
+										<button
+											type="button"
+											onClick={handleLogout}
+											className={`${
+												active ? "bg-gray-100" : ""
+											} block py-2 px-4 text-sm text-gray-700 w-full text-left`}
+										>
+											Logout
+										</button>
+									)}
+								</Menu.Item>
 												</MenuItems>
 											</Transition>
 										</Menu>

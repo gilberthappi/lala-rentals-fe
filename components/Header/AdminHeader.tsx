@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -11,11 +11,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 import React from "react";
 import Typography from "../typography/Typography";
 
 const AdminHeader = () => {
 	const path = usePathname();
+	const { data } = useSession();
 	const handleLogout = () => {
 		signOut();
 	};
@@ -27,11 +29,12 @@ const AdminHeader = () => {
 					<DropdownMenu>
 						<DropdownMenuTrigger>
 							<Avatar>
-								<AvatarFallback>EM</AvatarFallback>
+								<AvatarImage src={data?.user?.image || "/default-avatar.png"} />
+								<AvatarFallback>{data?.user?.name?.charAt(0).toUpperCase()}</AvatarFallback>
 							</Avatar>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent>
-							<DropdownMenuLabel>My Account</DropdownMenuLabel>
+							<DropdownMenuLabel>{data?.user?.name}</DropdownMenuLabel>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem>Profile</DropdownMenuItem>
 							<DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>

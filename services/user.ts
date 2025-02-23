@@ -1,4 +1,3 @@
-
 import type { IUser } from "./../types/index";
 import httpClient from "./httpClient";
 

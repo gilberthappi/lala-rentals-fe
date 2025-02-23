@@ -1,6 +1,6 @@
 "use client";
 import type { IRole } from "@/constants/roles";
-import type { TokenPayload } from "@/constants/types";
+import { TokenPayload } from "@/constants/types";
 import { useSession } from "next-auth/react";
 import React, { type PropsWithChildren, type FC } from "react";
 

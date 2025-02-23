@@ -1,15 +1,17 @@
-// /home/happi/Project/iwm/lalahomes/app/auth/signin/page.tsx
-
 "use client";
 import { LoginForm } from "@/components/Login/loginForm";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React from "react";
+
 const SignInPage = () => {
   const { status } = useSession();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams?.get("callbackUrl") || "/";
 
   if (status === "authenticated") {
-    redirect("/welcome");
+    redirect(callbackUrl);
   }
   return (
     <div className="bg-blue-100 flex items-center justify-center h-screen">
@@ -24,7 +26,7 @@ const SignInPage = () => {
             </p>
           </div>
         </div>
-        <LoginForm />
+        <LoginForm callbackUrl={callbackUrl} />
       </div>
     </div>
   );

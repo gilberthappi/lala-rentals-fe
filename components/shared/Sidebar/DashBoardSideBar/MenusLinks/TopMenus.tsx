@@ -1,6 +1,5 @@
 "use client";
 import type { IRole } from "@/constants/roles";
-import type { TokenPayload } from "@/constants/types";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import { useSession } from "next-auth/react";
@@ -8,12 +7,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment, useState } from "react";
 import { mainMenu, subMenus } from "../menus";
+import { TokenPayload } from "@/constants/types";
 
 const TopMenus = () => {
 	const currentRoute = usePathname();
 	const [showWebsiteSubMenus, setshowWebsiteSubMenus] = useState(false);
 	const { data } = useSession();
-	const userInfo = data as TokenPayload;
+	const userInfo = data as unknown as TokenPayload;
 
 	const hasRequiredRoles = (requiredRoles: IRole[]): boolean => {
 		return requiredRoles.some((element) =>

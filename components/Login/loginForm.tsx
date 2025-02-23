@@ -13,7 +13,7 @@ import Alert from "../ui/Alert";
 import { Button } from "../ui/button";
 import { GoogleSignInButton } from "../ui/authButtons";
 
-export const LoginForm = () => {
+export const LoginForm = ({ callbackUrl }: { callbackUrl: string }) => {
   const [formType, setFormType] = useState<
     "login" | "register" | "forgot" | "reset"
   >("login");
@@ -43,7 +43,7 @@ export const LoginForm = () => {
     setError(undefined);
     const response = await signIn("credentials", {
       ...formData,
-      callbackUrl: "/auth/signin",
+      callbackUrl,
       redirect: false,
     });
     if (response?.error) {

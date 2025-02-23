@@ -63,7 +63,6 @@ export default function PropertyPages() {
 	}
 
 
-	console.log("deleteId", deleteId);
 	const columns = useMemo(
 		() => [
 			{
