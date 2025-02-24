@@ -42,17 +42,17 @@ const PropertySection = () => {
   const filteredProperties = properties?.filter((property: IProperty) => {
     return (
       property.location.toLowerCase().includes(locationFilter.toLowerCase()) &&
-      property.pricePerNight >= priceRange[0] &&
-      property.pricePerNight <= priceRange[1] &&
-      property.bedrooms >= bedroomFilter
+      Number(property.pricePerNight) >= priceRange[0] &&
+      Number(property.pricePerNight) <= priceRange[1] &&
+      Number(property.bedrooms) >= bedroomFilter
     );
   });
 
   const sortedProperties = filteredProperties?.slice().sort((a: IProperty, b: IProperty) => {
     if (sortOption === "name-asc") return a.title.localeCompare(b.title);
     if (sortOption === "name-desc") return b.title.localeCompare(a.title);
-    if (sortOption === "price-asc") return a.pricePerNight - b.pricePerNight;
-    if (sortOption === "price-desc") return b.pricePerNight - a.pricePerNight;
+    if (sortOption === "price-asc") return Number(a.pricePerNight) - Number(b.pricePerNight);
+    if (sortOption === "price-desc") return Number(b.pricePerNight) - Number(a.pricePerNight);
     return 0;
   });
 
