@@ -84,12 +84,6 @@ LALA HOMES is a comprehensive property management platform designed to streamlin
  ```sh
 https://
 ```
-- [ ] **Swagger Documentation from BackEnd**
-
-   ```sh
-   https://https://lala-rentals-be.onrender.com/docs/#/
-   ```
-
 <!-- GETTING STARTED -->
 
 ## 💻 Getting Started <a name="getting-started"></a>
@@ -101,7 +95,7 @@ _To get a local copy up and running follow these simple steps._
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/gilberthappi/.git
+   git clone https://github.com/gilberthappi/lala-rentals-fe/.git
    ```
 2. Goto project directory
    ```sh
@@ -155,7 +149,7 @@ _To get a local copy up and running follow these simple steps._
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/gilberthappi/xxxx/issues/1).
+Feel free to check the [issues page](https://github.com/gilberthappi/lala-rentals-fe/issues/1).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
