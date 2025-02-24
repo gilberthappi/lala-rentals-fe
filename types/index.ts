@@ -4,11 +4,11 @@ export interface IProperty {
 	location: string;
 	description: string;
 	size: string;
-	pricePerNight: number;
+	pricePerNight: string;
 	createdAt: string;
 	updatedAt: string;
-	bedrooms: number;
-	bathrooms: number;
+	bedrooms: string;
+	bathrooms: string;
 	thumbnail: string;
 	gallery: string[];
 	petFriendly: boolean;
@@ -32,7 +32,7 @@ export interface IUser {
 
 export interface IBookings {
 	id: string;
-	userId?: number;
+	userId: number;
 	propertyId: string;
 	checkInDate: string;
 	checkOutDate: string;

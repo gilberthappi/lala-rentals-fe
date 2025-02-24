@@ -24,6 +24,11 @@ export const getAllMyBookings = async (): Promise<IBookings[]> => {
 	return response.data.data;
 };
 
+export const getAllHostBookings = async (): Promise<IBookings[]> => {
+	const response = await httpClient.get("/booking/booking/host");
+	return response.data.data;
+};
+
 export const getProperty = async (id: string): Promise<IProperty> => {
 	const response = await httpClient.get(`/property/${id}`);
 	return response.data.data;

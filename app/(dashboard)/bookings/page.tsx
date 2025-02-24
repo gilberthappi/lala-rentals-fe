@@ -1,6 +1,6 @@
 "use client";
 import { customStyles } from "@/components/ui/helper.css";
-import type { IProperty } from "@/types";
+import type { IBookings } from "@/types";
 import { HiOutlineCheck, HiOutlineXMark } from "react-icons/hi2";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
@@ -8,7 +8,7 @@ import { useMemo } from "react";
 import DataTable from "react-data-table-component";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
-import { getAllMyProperties, updateBookingstatus } from "@/services/property";
+import { getAllHostBookings, updateBookingstatus } from "@/services/property";
 import Typography from "@/components/typography/Typography";
 
 const BookingsPages = () => {
@@ -16,7 +16,7 @@ const BookingsPages = () => {
 	const { toast } = useToast();
 	const { data, isLoading } = useQuery({
 		queryKey: ["BOOKINGS"],
-		queryFn: getAllMyProperties,
+		queryFn: getAllHostBookings,
 		gcTime: 0,
 	});
 
@@ -39,7 +39,7 @@ const BookingsPages = () => {
 		}
 	});
 
-	const handleUpdateBooking = React.useCallback((property: IProperty, status: string) => {
+	const handleUpdateBooking = React.useCallback((property: IBookings, status: string) => {
 		updateBookingMutation.mutate({ id: property.id.toString(), status });
 	}, [updateBookingMutation]);
 
@@ -55,38 +55,47 @@ const BookingsPages = () => {
 	const columns = useMemo(
 		() => [
 			{
-				name: "Title",
-				selector: (row: IProperty) => row.title,
+				name: "FirstName",
+				selector: (row: IBookings) => row.user.firstName,
 				sortable: true,
 			},
 			{
-				name: "Location",
-				selector: (row: IProperty) => row.location,
+				name: "LastName",
+				selector: (row: IBookings) => row.user.lastName,
+				sortable: true,
+			},
+			{
+				name: "Email",
+				selector: (row: IBookings) => row.user.email,
 				sortable: true,
 			},
 			{
 				name: "CheckIn",
-				selector: (row: IProperty) => formatDate(row.bookings[0].checkInDate),
+				selector: (row: IBookings) => formatDate(row.checkInDate),
 				sortable: true,
 			},
 			{
 				name: "CheckOut",
-				selector: (row: IProperty) => formatDate(row.bookings[0].checkOutDate),
+				selector: (row: IBookings) => formatDate(row.checkOutDate),
 				sortable: true,
 			},
 			{
 				name: "Total",
-				selector: (row: IProperty) => row.bookings[0].totalPrice,
+				selector: (row: IBookings) => row.totalPrice,
 				sortable: true,
 			},
 			{
 				name: "Status",
-				selector: (row: IProperty) => row.bookings[0].bookingStatus,
+				cell: (row: IBookings) => (
+					<span className={row.bookingStatus === "confirmed" ? "text-green-500" : row.bookingStatus === "cancelled" ? "text-red-500" : ""}>
+						{row.bookingStatus ?? ''}
+					</span>
+				),
 				sortable: true,
 			},
 			{
 				name: "Action",
-				cell: (row: IProperty) => (
+				cell: (row: IBookings) => (
 					<>
 						<HiOutlineCheck className="text-green-500 w-4 h-4 hover:text-green-700 mr-2" onClick={() => handleUpdateBooking(row, "confirmed")} />
 						<HiOutlineXMark className="text-red-500 w-4 h-4 hover:text-red-700 mr-2" onClick={() => handleUpdateBooking(row, "cancelled")} />

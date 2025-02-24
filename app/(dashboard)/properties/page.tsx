@@ -126,7 +126,7 @@ export default function PropertyPages() {
 	return (
 		<div className="w-full space-y-4 p-4 bg-white rounded-lg shadow-md">
 			<div className="justify flex justify-between">
-				<Typography>Properties</Typography>
+				<Typography>PROPERTIES</Typography>
 				<Button asChild className="mb-4">
 					<Link href="/properties/create">Create Property</Link>
 				</Button>

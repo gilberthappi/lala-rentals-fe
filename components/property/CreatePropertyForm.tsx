@@ -51,9 +51,9 @@ export default function CreatePropertyForm({
 			title: defaults?.title || "",
 			location: defaults?.location || "",
 			description: defaults?.description || "",
-			pricePerNight: defaults?.pricePerNight || 0,
-			bedrooms: defaults?.bedrooms || 0,
-			bathrooms: defaults?.bathrooms || 0,
+			pricePerNight: defaults?.pricePerNight || "",
+			bedrooms: defaults?.bedrooms || "",
+			bathrooms: defaults?.bathrooms || "",
 			petFriendly: defaults?.petFriendly || false,
 			thumbnail: defaults?.thumbnail || "",
 			gallery: defaults?.gallery || [],
@@ -93,9 +93,9 @@ export default function CreatePropertyForm({
 		formData.append("title", data.title);
 		formData.append("location", data.location);
 		formData.append("description", data.description);
-		formData.append("bedrooms", data.bedrooms.toString());
-		formData.append("bathrooms", data.bathrooms.toString());
-		formData.append("pricePerNight", data.pricePerNight.toString());
+		formData.append("bedrooms", data.bedrooms);
+		formData.append("bathrooms", data.bathrooms);
+		formData.append("pricePerNight", data.pricePerNight);
 		formData.append("petFriendly", data.petFriendly.toString());
 		formData.append("size", data.size || "");
 

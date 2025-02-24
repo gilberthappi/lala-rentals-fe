@@ -5,9 +5,9 @@ export const CreatePropertySchema = z.object({
 	location: z.string({ required_error: "Location required" }).min(2),
 	description: z.string({ required_error: "Description required" }).min(1),
 	size:z.string().optional(),
-	pricePerNight: z.number({ required_error: "Price required" }),
-	bedrooms: z.number({ required_error: "Bedrooms required" }),
-	bathrooms: z.number({ required_error: "Bathrooms required" }),
+	pricePerNight: z.string({ required_error: "Price required" }),
+	bedrooms: z.string({ required_error: "Bedrooms required" }),
+	bathrooms: z.string({ required_error: "Bathrooms required" }),
 	petFriendly: z.boolean(),
 	thumbnail:  z
 	.any()
